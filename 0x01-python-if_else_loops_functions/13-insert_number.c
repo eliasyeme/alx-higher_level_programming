@@ -6,6 +6,6 @@
  * @number: number to insert
  *
  * Return:	address on the new node on success
- * 					NULL if it failed
+ *					NULL if it failed
  */
 listint_t *insert_node(listint_t **head, int number);
