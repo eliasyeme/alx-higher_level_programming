@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 def multiple_returns(sentence):
-    chr= None
+    chr = None
     length = 0
     if sentence:
         chr = sentence[0]
