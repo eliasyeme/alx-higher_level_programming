@@ -1,0 +1,38 @@
+============================
+How to Use 3-say_my_name.py
+============================
+
+This module defines a name printing function
+``say_my_name(first_name, last_name="")``.
+
+Usage
+=====
+
+::
+	>>> say_my_name = __import__("3-say_my_name").say_my_name
+	>>> say_my_name("Deez", "Nutts")
+	My name is Deez Nutts
+
+::
+	>>> say_my_name("Deez")
+	My name is Deez 
+
+::
+	>>> say_my_name("Deez", 69)
+	Traceback (most recent call last):
+	TypeError: last_name must be a string
+
+::
+	>>> say_my_name(Null, "Nutts")
+	Traceback (most recent call last):
+	NameError: name 'Null' is not defined
+
+::
+	>>> say_my_name(96, 69)
+	Traceback (most recent call last):
+	TypeError: first_name must be a string
+
+::
+	>>> say_my_name()
+	Traceback (most recent call last):
+	TypeError: say_my_name() missing 1 required positional argument: 'first_name'
