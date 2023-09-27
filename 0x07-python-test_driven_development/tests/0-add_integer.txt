@@ -1,0 +1,55 @@
+===========================
+How to Use 0-add_integer.py
+===========================
+
+Module to add two integer numbers ``add_integer(a, b=98)``
+
+Numbers
+=======
+
+``add_integer()`` returns the addition of it's argument. For numbers
+that value is equivalent to using the ``+`` operator.
+
+::
+	>>> add_integer = __import__('0-add_integer').add_integer
+	>>> add_integer(3, 7)
+	10
+
+::
+	>>> add_integer(-3, 7)
+	4
+
+With floating point numbers arguments will be casted before addition
+::
+	>>> add_integer(3.0, 7.0)
+	10
+
+Floating and integer type arguments can be used in combination
+::
+	>>> add_integer(3.0, 7)
+	10
+
+Second argument is optional
+::
+	>>> add_integer(2)
+	100
+
+Non-Numbers
+===========
+``add_integer`` expects only integers or floats. If the arguments
+are not one of this a TypeError exception will be raised
+
+::
+	>>> add_integer("asdf", 7)
+	Traceback (most recent call last):
+	TypeError: a must be an integer
+
+::
+	>>> add_integer(3, "asdf")
+	Traceback (most recent call last):
+	TypeError: b must be an integer
+
+::
+	>>> add_integer()
+	Traceback (most recent call last):
+	TypeError: add_integer() missing 1 required positional argument: 'a'
