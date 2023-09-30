@@ -1,0 +1,64 @@
+===============================
+How to Use 5-text_indentation.py
+================================
+
+This module defines function to modify text based on '.', '?' and ':'
+``text_indentation(text)``.
+
+Usage
+=====
+
+::
+	>>> text_indentation = __import__('5-text_indentation').text_indentation
+	>>> text_indentation("Deez.")
+	Deez.
+	<BLANKLINE>
+
+::
+	>>> text_indentation("     .")
+	.
+	<BLANKLINE>
+
+::
+	>>> text_indentation("   ")
+
+::
+	>>> text_indentation("\n")
+	<BLANKLINE>
+
+::
+	>>> text_indentation(".   ")
+	.
+	<BLANKLINE>
+
+::
+	>>> text_indentation("    Deez nutts.    E10 Deez.   ")
+	Deez nutts.
+	<BLANKLINE>
+	E10 Deez.
+	<BLANKLINE>
+
+::
+	>>> text_indentation("Bobby bit me")
+	Bobby bit me
+
+::
+	>>> text_indentation("\n\n80085")
+	<BLANKLINE>
+	<BLANKLINE>
+	80085
+
+::
+	>>> text_indentation(69)
+	Traceback (most recent call last):
+	TypeError: text must be a string
+
+::
+	>>> text_indentation({})
+	Traceback (most recent call last):
+	TypeError: text must be a string
+
+::
+	>>> text_indentation(None)
+	Traceback (most recent call last):
+	TypeError: text must be a string
