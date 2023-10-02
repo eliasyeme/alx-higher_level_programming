@@ -77,7 +77,8 @@ class Rectangle:
         print("Bye rectangle...")
 
     @staticmethod
-    def bigger_or_equal(rect_1: 'Rectangle', rect_2: 'Rectangle') -> 'Rectangle':
+    def bigger_or_equal(rect_1: 'Rectangle', rect_2: 'Rectangle')\
+            -> 'Rectangle':
         """Compare to Rectangles
         Args:
             rect_1 (Rectangle): first Rectangle
