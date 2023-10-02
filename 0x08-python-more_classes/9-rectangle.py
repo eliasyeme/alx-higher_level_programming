@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Module for Rectangle"""
-from typing import Type
 
 
 class Rectangle:
