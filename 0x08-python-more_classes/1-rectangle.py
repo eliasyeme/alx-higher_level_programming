@@ -3,13 +3,7 @@
 
 
 class Rectangle:
-    """Rectangle class
-
-    Attributes:
-        width (int): width of the rectangle
-        height (int): height of the rectangle
-    """
-    def __init__(self, width: int=0, height: int=0) -> None:
+    def __init__(self, width: int = 0, height: int = 0) -> None:
         """Initialize rectangle class
 
         Args:
@@ -25,7 +19,7 @@ class Rectangle:
         return self.__width
 
     @width.setter
-    def width (self, value: int) -> None:
+    def width(self, value: int) -> None:
         """Set width"""
         if type(value) is not int:
             raise TypeError("width must be an integer")
