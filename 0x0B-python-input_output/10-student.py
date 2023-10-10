@@ -26,6 +26,6 @@ class Student:
             Dictionary representaion of this class
         """
         if (type(attrs) is list and
-                all(type(el) == str for el in attrs)):
+                all(type(el) is str for el in attrs)):
             return {k: getattr(self, k) for k in attrs if hasattr(self, k)}
         return self.__dict__
