@@ -8,6 +8,9 @@ def append_write(filename="", text=""):
     Args:
         filname (str): file to write to
         text (str): text to write
+
+    Returns:
+        Number of file written
     """
-    with open(filename, "a", encoding="UTF8") as file:
+    with open(filename, "a", encoding="utf-8") as file:
         return file.write(text)
