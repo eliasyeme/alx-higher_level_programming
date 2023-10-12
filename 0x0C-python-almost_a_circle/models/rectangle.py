@@ -14,12 +14,18 @@ class Rectangle(Base):
             height (int): Height of the rectangle
             x (int): X coordinate of the rectangle
             y (int): Y coordinate of the rectangle
+
+        Raises:
+            TypeError: If Any of the inputs are not integer
+            ValueError: If width or height are less or equal to 0
+            ValueError: If x or y are less than 0
         """
-        self.__width = width
-        self.__height = height
-        self.__x = x
-        self.__y = y
+        self.width = width
+        self.height = height
+        self.x = x
+        self.y = y
         super().__init__(id)
+
 
     @property
     def width(self):
@@ -29,6 +35,7 @@ class Rectangle(Base):
     @width.setter
     def width(self, value):
         """Sets width"""
+        self.__error_helper(value, "width")
         self.__width = value
 
     @property
@@ -39,6 +46,7 @@ class Rectangle(Base):
     @height.setter
     def height(self, value):
         """Sets height"""
+        self.__error_helper(value, "height")
         self.__height = value
 
     @property
@@ -49,6 +57,7 @@ class Rectangle(Base):
     @x.setter
     def x(self, value):
         """Sets x"""
+        self.__error_helper(value, "x")
         self.__x = value
 
     @property
@@ -59,4 +68,23 @@ class Rectangle(Base):
     @y.setter
     def y(self, value):
         """Sets y"""
+        self.__error_helper(value, "y")
         self.__y = value
+
+    @staticmethod
+    def __error_helper(value, an):
+        if type(value) != int:
+            raise TypeError(
+                "{} must be an integer".format(an)
+            )
+
+        if value <= 0:
+            symbol = ">"
+            if an == "x" or an == "y":
+                if value == 0:
+                    return
+                symbol = ">="
+
+            raise ValueError(
+                "{} must be {} 0".format(an, symbol)
+            )

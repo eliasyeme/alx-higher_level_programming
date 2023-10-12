@@ -19,16 +19,8 @@ class TestRectagle(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_rectangle_is_instance_of_base(self):
-        self.assertIsInstance(Rectangle(0, 0), Base)
-
-    def test_no_args(self):
-        with self.assertRaises(TypeError):
-            Rectangle()
-
-    def test_one_args(self):
-        with self.assertRaises(TypeError):
-            Rectangle(2)
+    def test_rect_is_instance_of_base(self):
+        self.assertIsInstance(Rectangle(1, 1), Base)
 
     def test_rect_id(self):
         id1 = self.r2_10x2.id
@@ -71,3 +63,138 @@ class TestRectagle(unittest.TestCase):
     def test_rect_set_y(self):
         self.r2_1x7.y = 2
         self.assertEqual(self.r2_1x7.y, 2)
+
+    def test_no_args(self):
+        with self.assertRaises(TypeError):
+            Rectangle()
+
+    def test_one_args(self):
+        with self.assertRaises(TypeError):
+            Rectangle(2)
+
+    def test_rect_0_width(self):
+        with self.assertRaises(ValueError) as e:
+            Rectangle(0, 10)
+        width_err = "width must be > 0"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_negative_width(self):
+        with self.assertRaises(ValueError) as e:
+            Rectangle(0, 10)
+        width_err = "width must be > 0"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_0_height(self):
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, 0)
+        width_err = "height must be > 0"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_negative_height(self):
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, -2)
+        width_err = "height must be > 0"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_negative_x(self):
+        with self.assertRaises(ValueError) as e:
+            Rectangle(1, 1, -2)
+        width_err = "x must be >= 0"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+
+    def test_rect_negative_y(self):
+        with self.assertRaises(ValueError) as e:
+            Rectangle(1, 1, 2, -7)
+        width_err = "y must be >= 0"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_width_type_float(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(3.77, 1)
+        width_err = "width must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_width_type_str(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle("string", 1)
+        width_err = "width must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_width_type_None(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(None, 1)
+        width_err = "width must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_height_type_float(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, 3.77)
+        width_err = "height must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_height_type_str(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, "string")
+        width_err = "height must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_height_type_None(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, None)
+        width_err = "height must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_x_type_str(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, 1, "string")
+        width_err = "x must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_x_type_float(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, 1, 2.7)
+        width_err = "x must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_x_type_None(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, 1, None)
+        width_err = "x must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_y_type_str(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, 1, 1, "string")
+        width_err = "y must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_y_type_float(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, 1, 2, 2.7)
+        width_err = "y must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
+
+    def test_rect_y_type_None(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1, 1, 1, None)
+        width_err = "y must be an integer"
+        err_msg = e.exception.__str__()
+        self.assertEqual(width_err, err_msg)
