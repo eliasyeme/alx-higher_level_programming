@@ -71,6 +71,10 @@ class Rectangle(Base):
         self.__error_helper(value, "y")
         self.__y = value
 
+    def area(self):
+        """Calculate area"""
+        return self.width * self.height
+
     @staticmethod
     def __error_helper(value, an):
         if type(value) != int:
