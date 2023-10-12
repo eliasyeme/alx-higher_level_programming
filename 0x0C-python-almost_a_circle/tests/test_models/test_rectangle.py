@@ -198,3 +198,37 @@ class TestRectagle(unittest.TestCase):
         width_err = "y must be an integer"
         err_msg = e.exception.__str__()
         self.assertEqual(width_err, err_msg)
+
+    def test_rect_area(self):
+        self.assertEqual(self.r2_1x7.area(), 7)
+        self.assertEqual(self.r2_10x2.area(), 20)
+        self.assertEqual(self.r3_10x2_9.area(), 20)
+        self.assertEqual(self.r3_2x10_6.area(), 20)
+        self.assertEqual(self.r4_10x2_6_9.area(), 20)
+        self.assertEqual(self.r4_2x10_9_6.area(), 20)
+        self.assertEqual(self.r5_10x2_6_9_12.area(), 20)
+        self.assertEqual(self.r5_2x10_9_6_21.area(), 20)
+
+    def test_rect_area_anon(self):
+        self.assertEqual(Rectangle(3, 7).area(), 21)
+
+    def test_rect_area_large(self):
+        area = Rectangle(123456789, 987654321).area()
+        self.assertEqual(area, 121932631112635269)
+
+    def test_react_area_arg(self):
+        with self.assertRaises(TypeError):
+            Rectangle(2, 7).area(2)
+
+    def test_rect_area_modified_width(self):
+        self.r2_10x2.width = 12
+        self.assertEqual(self.r2_10x2.area(), 24)
+
+    def test_rect_area_modified_height(self):
+        self.r2_10x2.height = 33
+        self.assertEqual(self.r2_10x2.area(), 330)
+
+    def test_rect_area_modified_width_height(self):
+        self.r2_10x2.height = 33
+        self.r2_10x2.width = 33
+        self.assertEqual(self.r2_10x2.area(), 1089)
