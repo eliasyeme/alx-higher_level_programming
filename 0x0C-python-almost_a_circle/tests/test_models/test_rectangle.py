@@ -260,6 +260,34 @@ class TestRectangleDisplay(unittest.TestCase):
         self.assertEqual(stdout.getvalue(), want)
 
     @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display2x2_width_modified(self, stdout):
+        r1 = Rectangle(2, 2)
+        r1.width = 5
+        r1.display()
+        want = "\n".join(["#" * r1.width for _ in range(r1.height)])
+        want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display2x2_height_modified(self, stdout):
+        r1 = Rectangle(2, 2)
+        r1.height = 5
+        r1.display()
+        want = "\n".join(["#" * r1.width for _ in range(r1.height)])
+        want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display2x2_width__and_height_modified(self, stdout):
+        r1 = Rectangle(2, 2)
+        r1.width = 7
+        r1.height = 5
+        r1.display()
+        want = "\n".join(["#" * r1.width for _ in range(r1.height)])
+        want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
     def test_rect_display3x4(self, stdout):
         r1 = Rectangle(3, 4)
         r1.display()
@@ -281,6 +309,58 @@ class TestRectangleDisplay(unittest.TestCase):
         r1.display()
         want = "\n".join(["#" * r1.width for _ in range(r1.height)])
         want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display1x1x1x0(self, stdout):
+        r1 = Rectangle(1, 1, 1)
+        r1.display()
+        want = "\n".join(
+            [(" " * r1.x) + ("#" * r1.width) for _ in range(r1.height)]
+        ) + "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display1x1x1x0_x_modified(self, stdout):
+        r1 = Rectangle(1, 1, 1)
+        r1.x = 7
+        r1.display()
+        want = "\n".join(
+            [(" " * r1.x) + ("#" * r1.width) for _ in range(r1.height)]
+        ) + "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display1x1x0x7(self, stdout):
+        r1 = Rectangle(1, 1, 0, 7)
+        r1.display()
+        want = "\n" * r1.y
+        want += "\n".join(
+            [(" " * r1.x) + ("#" * r1.width) for _ in range(r1.height)]
+        ) + "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display1x1x0x7_y_modified(self, stdout):
+        r1 = Rectangle(1, 1, 0, 7)
+        r1.y = 4
+        r1.display()
+        want = "\n" * r1.y
+        want += "\n".join(
+            [(" " * r1.x) + ("#" * r1.width) for _ in range(r1.height)]
+        ) + "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display1x1x0x7_x_and_y_modified(self, stdout):
+        r1 = Rectangle(1, 1, 0, 7)
+        r1.x = 7
+        r1.y = 4
+        r1.display()
+        want = "\n" * r1.y
+        want += "\n".join(
+            [(" " * r1.x) + ("#" * r1.width) for _ in range(r1.height)]
+        ) + "\n"
         self.assertEqual(stdout.getvalue(), want)
 
 class TestRectanglePrint(unittest.TestCase):
