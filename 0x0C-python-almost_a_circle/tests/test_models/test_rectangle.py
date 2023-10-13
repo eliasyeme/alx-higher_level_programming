@@ -436,7 +436,7 @@ class TestRectanglePrint(unittest.TestCase):
         self.assertEqual(stdout.getvalue(), want)
 
 
-class TestRectangleUpdate(unittest.TestCase):
+class TestRectangleUpdateArgs(unittest.TestCase):
     """Rectangle update test"""
     def setUp(self):
         self.r = Rectangle(1, 1, 1, 1, 1)
@@ -509,3 +509,69 @@ class TestRectangleUpdate(unittest.TestCase):
     def test_rect_update_invalid_value_y(self):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             self.r.update(None, 1, 1, 1, -1)
+
+class TestRectangleUpdateKwargs(unittest.TestCase):
+    """Rectangle update key word args test"""
+    def setUp(self):
+        self.r = Rectangle(1, 1, 1, 1, 1)
+
+    def test_rect_update_id(self):
+        self.r.update(id=7)
+        self.assertEqual("[Rectangle] (7) 1/1 - 1/1", str(self.r))
+
+    def test_rect_update_id_width(self):
+        self.r.update(width=6, id=7)
+        self.assertEqual("[Rectangle] (7) 1/1 - 6/1", str(self.r))
+
+    def test_rect_update_id_widht_height(self):
+        self.r.update(id=7, height=5, width=6)
+        self.assertEqual("[Rectangle] (7) 1/1 - 6/5", str(self.r))
+
+    def test_rect_update_id_width_height_x(self):
+        self.r.update(x=4, height=5, width=6, id=7)
+        self.assertEqual("[Rectangle] (7) 4/1 - 6/5", str(self.r))
+
+    def test_rect_update_id_width_height_x_y(self):
+        self.r.update(height=5, width=6, id=7, y=3, x=4)
+        self.assertEqual("[Rectangle] (7) 4/3 - 6/5", str(self.r))
+
+    def test_rect_update_more_than_5(self):
+        self.r.update(7, 6, 5, 4, width=3, id=2, y=1)
+        self.assertEqual("[Rectangle] (2) 4/1 - 3/5", str(self.r))
+
+    def test_rect_update_twice(self):
+        self.r.update(x=4, y=3, height=5, width=6, id=7)
+        self.r.update(x=40, y=30, height=50, width=60, id=70)
+        self.assertEqual("[Rectangle] (70) 40/30 - 60/50", str(self.r))
+
+    def test_rect_update_invalid_width(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            self.r.update(None, width="")
+
+    def test_rect_update_invalid_height(self):
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            self.r.update(None, 1, height="")
+
+    def test_rect_update_invalid_x(self):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            self.r.update(None, 1, 1, x="")
+
+    def test_rect_update_invalid_y(self):
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            self.r.update(None, 1, 1, 1, y="")
+
+    def test_rect_update_invalid_value_width(self):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            self.r.update(None, width=0)
+
+    def test_rect_update_invalid_value_height(self):
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            self.r.update(None, 1, height=0)
+
+    def test_rect_update_invalid_value_x(self):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            self.r.update(None, 1, 1, x=-1)
+
+    def test_rect_update_invalid_value_y(self):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            self.r.update(None, 1, 1, 1, y=-1)

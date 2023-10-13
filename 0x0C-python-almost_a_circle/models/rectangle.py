@@ -95,7 +95,7 @@ class Rectangle(Base):
             self.height
         )
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """Update attributes"""
         for i in range(len(args)):
             val = args[i]
@@ -109,6 +109,18 @@ class Rectangle(Base):
                 self.x = val
             elif i == 4:
                 self.y = val
+
+        for k, v in kwargs.items():
+            if k == "id" and v != None:
+                self.id = v
+            elif k == "width":
+                self.width = v
+            elif k == "height":
+                self.height = v
+            elif k == "x":
+                self.x = v
+            elif k == "y":
+                self.y = v
 
     # def update(self, *args):
     #     """Update attributes"""
