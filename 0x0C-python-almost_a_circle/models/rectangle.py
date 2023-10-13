@@ -75,6 +75,11 @@ class Rectangle(Base):
         """Calculate area"""
         return self.width * self.height
 
+    def display(self):
+        """Display rectangle as # on stdout"""
+        for _ in range(self.height):
+            print("#" * self.width)
+
     @staticmethod
     def __error_helper(value, an):
         if type(value) != int:

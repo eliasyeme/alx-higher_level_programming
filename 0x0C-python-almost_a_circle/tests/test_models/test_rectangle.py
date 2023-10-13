@@ -1,7 +1,9 @@
 import unittest
-
+from unittest.mock import patch
+from io import StringIO
 from models.base import Base
 from models.rectangle import Rectangle
+
 
 
 class TestRectagle(unittest.TestCase):
@@ -245,3 +247,37 @@ class TestRectangleArea(unittest.TestCase):
         r1.width = 11
         r1.height = 22
         self.assertEqual(r1.area(), 242)
+
+
+class TestRectangleDisplay(unittest.TestCase):
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display2x2(self, stdout):
+        r1 = Rectangle(2, 2)
+        r1.display()
+        want = "\n".join(["#" * r1.width for _ in range(r1.height)])
+        want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display3x4(self, stdout):
+        r1 = Rectangle(3, 4)
+        r1.display()
+        want = "\n".join(["#" * r1.width for _ in range(r1.height)])
+        want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display100x50(self, stdout):
+        r1 = Rectangle(100, 50)
+        r1.display()
+        want = "\n".join(["#" * r1.width for _ in range(r1.height)])
+        want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_display1x1(self, stdout):
+        r1 = Rectangle(1, 1)
+        r1.display()
+        want = "\n".join(["#" * r1.width for _ in range(r1.height)])
+        want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
