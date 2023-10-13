@@ -86,7 +86,7 @@ class Rectangle(Base):
 
     def __str__(self):
         """String representation"""
-        return "[{}] ({:d}) {:d}/{:d} - {:d}/{:d}".format(
+        return "[{}] ({}) {:d}/{:d} - {:d}/{:d}".format(
             self.__class__.__name__,
             self.id,
             self.x,
@@ -94,6 +94,30 @@ class Rectangle(Base):
             self.width,
             self.height
         )
+
+    def update(self, *args):
+        """Update attributes"""
+        for i in range(len(args)):
+            val = args[i]
+            if i == 0 and val != None:
+                self.id = val
+            elif i == 1:
+                self.width = val
+            elif i == 2:
+                self.height = val
+            elif i == 3:
+                self.x = val
+            elif i == 4:
+                self.y = val
+
+    # def update(self, *args):
+    #     """Update attributes"""
+    #     attrs = [k for k in self.__dict__.keys() if not k.endswith("_")]
+    #     for i in range(len(args)):
+    #         if i == 0:
+    #             setattr(self, attrs[-1], args[i])
+    #         else:
+    #             setattr(self, attrs[i-1], args[i])
 
     @staticmethod
     def __error_helper(value, an):
