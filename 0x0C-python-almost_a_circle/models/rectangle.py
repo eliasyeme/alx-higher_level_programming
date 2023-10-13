@@ -80,6 +80,17 @@ class Rectangle(Base):
         for _ in range(self.height):
             print("#" * self.width)
 
+    def __str__(self):
+        """String representation"""
+        return "[{}] ({:d}) {:d}/{:d} - {:d}/{:d}".format(
+            self.__class__.__name__,
+            self.id,
+            self.x,
+            self.y,
+            self.width,
+            self.height
+        )
+
     @staticmethod
     def __error_helper(value, an):
         if type(value) != int:

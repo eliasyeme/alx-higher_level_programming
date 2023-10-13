@@ -250,6 +250,7 @@ class TestRectangleArea(unittest.TestCase):
 
 
 class TestRectangleDisplay(unittest.TestCase):
+    """Rectangle display stdout test"""
     @patch('sys.stdout', new_callable=StringIO)
     def test_rect_display2x2(self, stdout):
         r1 = Rectangle(2, 2)
@@ -280,4 +281,77 @@ class TestRectangleDisplay(unittest.TestCase):
         r1.display()
         want = "\n".join(["#" * r1.width for _ in range(r1.height)])
         want += "\n"
+        self.assertEqual(stdout.getvalue(), want)
+
+class TestRectanglePrint(unittest.TestCase):
+    """Rectangle print test"""
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_difault(self, stdout):
+        r = Rectangle(4, 2)
+        print(r)
+        want = "[Rectangle] ({:d}) 0/0 - 4/2\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_modified_width(self, stdout):
+        r = Rectangle(4, 2)
+        r.width = 20
+        print(r)
+        want = "[Rectangle] ({:d}) 0/0 - 20/2\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_modified_height(self, stdout):
+        r = Rectangle(4, 2)
+        r.height = 72
+        print(r)
+        want = "[Rectangle] ({:d}) 0/0 - 4/72\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_modified_width_and_height(self, stdout):
+        r = Rectangle(4, 2)
+        r.width = 27
+        r.height = 72
+        print(r)
+        want = "[Rectangle] ({:d}) 0/0 - 27/72\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_with_x(self, stdout):
+        r = Rectangle(4, 2, 7)
+        print(r)
+        want = "[Rectangle] ({:d}) 7/0 - 4/2\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_with_modified_x(self, stdout):
+        r = Rectangle(4, 2, 7)
+        r.x = 9
+        print(r)
+        want = "[Rectangle] ({:d}) 9/0 - 4/2\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_with_x_and_y(self, stdout):
+        r = Rectangle(4, 2, 7, 9)
+        print(r)
+        want = "[Rectangle] ({:d}) 7/9 - 4/2\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_with_x_and_y_modified_y(self, stdout):
+        r = Rectangle(4, 2, 7, 9)
+        r.y = 12
+        print(r)
+        want = "[Rectangle] ({:d}) 7/12 - 4/2\n".format(r.id)
+        self.assertEqual(stdout.getvalue(), want)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_rect_print_with_x_and_y_modified_x_and_y(self, stdout):
+        r = Rectangle(4, 2, 7, 9)
+        r.x = 23
+        r.y = 12
+        print(r)
+        want = "[Rectangle] ({:d}) 23/12 - 4/2\n".format(r.id)
         self.assertEqual(stdout.getvalue(), want)
