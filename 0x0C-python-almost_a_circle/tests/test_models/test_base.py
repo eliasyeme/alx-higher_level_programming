@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import json
+import os
 import unittest
 from models.square import Square
 from models.rectangle import Rectangle
@@ -80,6 +81,94 @@ class TestBaseJsonString(unittest.TestCase):
     def test_to_json_invalid_arg_empty(self):
         with self.assertRaises(TypeError):
             Base().to_json_string()
+
+class TestBaseJsonToFile(unittest.TestCase):
+    """test save to file method"""
+    def setUp(self) -> None:
+        self.r = Rectangle(1, 1)
+        self.rn = "Rectangle.json"
+        self.s = Square(1)
+        self.sn = "Square.json"
+        self.b = Base()
+        self.bn = "Base.json"
+
+    def tearDown(self):
+        fnl = [self.rn, self.sn, self.bn]
+        for name in fnl:
+            if os.path.exists(name):
+                os.remove(name)
+
+    def test_to_file_none_base(self):
+        self.b.save_to_file(None)
+        with open(self.bn, "r") as file:
+            got = json.loads(file.read())
+            self.assertListEqual(got, [])
+
+    def test_to_file_none_rect(self):
+        self.r.save_to_file(None)
+        with open(self.rn, "r") as file:
+            got = json.loads(file.read())
+            self.assertListEqual(got, [])
+
+    def test_to_file_none_squre(self):
+        self.s.save_to_file(None)
+        with open(self.sn, "r") as file:
+            got = json.loads(file.read())
+            self.assertListEqual(got, [])
+
+    def test_to_file_rect_base(self):
+        self.b.save_to_file([self.r])
+        with open(self.bn, "r") as file:
+            got = json.loads(file.read())
+            want = [self.r.to_dictionary()]
+            self.assertListEqual(got, want)
+
+    def test_to_file_squre_base(self):
+        self.b.save_to_file([self.s])
+        with open(self.bn, "r") as file:
+            got = json.loads(file.read())
+            want = [self.s.to_dictionary()]
+            self.assertListEqual(got, want)
+
+    def test_to_file_rect_squre(self):
+        self.r.save_to_file([self.s])
+        with open(self.rn, "r") as file:
+            got = json.loads(file.read())
+            want = [self.s.to_dictionary()]
+            self.assertListEqual(got, want)
+
+    def test_to_file_squre_rect(self):
+        self.s.save_to_file([self.r])
+        with open(self.sn, "r") as file:
+            got = json.loads(file.read())
+            want = [self.r.to_dictionary()]
+            self.assertListEqual(got, want)
+
+    def test_to_file_rect_multi(self):
+        self.r.save_to_file([self.r, self.s])
+        with open(self.rn, "r") as file:
+            got = json.loads(file.read())
+            want = [
+                self.r.to_dictionary(), self.s.to_dictionary()
+            ]
+            self.assertListEqual(got, want)
+
+    def test_to_file_squre_multi(self):
+        self.s.save_to_file([self.r, self.s])
+        with open(self.sn, "r") as file:
+            got = json.loads(file.read())
+            want = [
+                self.r.to_dictionary(), self.s.to_dictionary()
+            ]
+            self.assertListEqual(got, want)
+
+    def test_to_file_invalid_args(self):
+        with self.assertRaises(TypeError):
+            self.r.save_to_file()
+
+    def test_to_file_invalid_args_2(self):
+        with self.assertRaises(TypeError):
+            self.r.save_to_file(None, None)
 
 if __name__ == "__main__":
     unittest.main()
