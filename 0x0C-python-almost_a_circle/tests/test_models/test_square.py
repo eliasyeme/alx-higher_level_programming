@@ -7,7 +7,7 @@ from models.rectangle import Rectangle
 
 class SquareTest(unittest.TestCase):
     """Base test cases"""
-    def test_square_is_instance_of_rect(self):
+    def test_square_is_instance_of_squre(self):
         self.assertIsInstance(Square(1), Rectangle)
 
     def test_square_id(self):
@@ -400,3 +400,50 @@ class TestRectangleUpdateKwargs(unittest.TestCase):
     def test_square_update_invalid_value_y(self):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             self.s.update(y=-1)
+
+class TestSqureToDict(unittest.TestCase):
+    """Test to_dictionary public method"""
+    def setUp(self):
+        self.s = Square(1, 0, 0, 1)
+        self.dict = {
+            "id": 1,
+            "size": 1,
+            "x": 0,
+            "y": 0
+        }
+
+    def test_squre_dict_minmal(self):
+        got = self.s.to_dictionary()
+        self.assertDictEqual(got, self.dict)
+
+    def test_squre_dict_modified_id(self):
+        self.s.update(id=9)
+        self.dict["id"] = 9
+        got = self.s.to_dictionary()
+        self.assertDictEqual(got, self.dict)
+
+    def test_squre_dict_modified_size(self):
+        self.s.update(size=9)
+        got = self.s.to_dictionary()
+        self.dict["size"] = 9
+        self.assertDictEqual(got, self.dict)
+
+    def test_squre_dict_modified_x_y(self):
+        self.s.update(x=7, y=9)
+        got = self.s.to_dictionary()
+        self.dict["x"] = 7
+        self.dict["y"] = 9
+        self.assertDictEqual(got, self.dict)
+
+    def test_squre_dict_modified_all(self):
+        self.s.update(id=2, size=3, x=7, y=9)
+        got = self.s.to_dictionary()
+        self.dict["id"] = 2
+        self.dict["size"] = 3
+        self.dict["x"] = 7
+        self.dict["y"] = 9
+        self.assertDictEqual(got, self.dict)
+
+    def test_squre_dict_type_error(self):
+        with self.assertRaises(TypeError):
+            self.s.to_dictionary(None)
