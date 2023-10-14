@@ -14,6 +14,7 @@ class Rectangle(Base):
             height (int): Height of the rectangle
             x (int): X coordinate of the rectangle
             y (int): Y coordinate of the rectangle
+            id (int): id of the class
 
         Raises:
             TypeError: If Any of the inputs are not integer

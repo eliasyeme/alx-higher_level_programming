@@ -44,7 +44,7 @@ class TestRectangleWidth(unittest.TestCase):
 
     def test_rect_negative_width(self):
         with self.assertRaises(ValueError) as e:
-            Rectangle(0, 10)
+            Rectangle(-7, 10)
         width_err = "width must be > 0"
         err_msg = e.exception.__str__()
         self.assertEqual(width_err, err_msg)
