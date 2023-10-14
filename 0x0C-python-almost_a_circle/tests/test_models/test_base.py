@@ -1,5 +1,8 @@
 #!/usr/bin/python3
+import json
 import unittest
+from models.square import Square
+from models.rectangle import Rectangle
 from models.base import Base
 
 
@@ -39,6 +42,44 @@ class TestBaseInstantiation(unittest.TestCase):
     def test_access_private_attribute(self):
         with self.assertRaises(AttributeError):
             self.b1.__nb_objects
+
+class TestBaseJsonString(unittest.TestCase):
+    """test dictionary to json"""
+    def test_to_json_None_dict(self):
+        self.assertEqual(Base.to_json_string(None), "[]")
+
+    def test_to_json_empty_dict(self):
+        self.assertEqual(Base.to_json_string({}), "[]")
+
+    def test_to_json_type(self):
+        self.assertIs(type(Base.to_json_string({})), str)
+
+    def test_to_json_type_with_item(self):
+        self.assertIs(type(Base.to_json_string([{"id":1}])), str)
+
+    def test_to_json_rect_dict(self):
+        r = Rectangle(1, 1).to_dictionary()
+        b = Base().to_json_string([r])
+        self.assertEqual(b, json.dumps([r]))
+
+    def test_to_json_squre_dict(self):
+        s = Square(1).to_dictionary()
+        b = Base().to_json_string([s])
+        self.assertEqual(b, json.dumps([s]))
+
+    def test_to_json_dict_list(self):
+        s = Square(1).to_dictionary()
+        r = Rectangle(1, 1).to_dictionary()
+        b = Base().to_json_string([r, s, r, s])
+        self.assertEqual(b, json.dumps([r, s, r, s]))
+
+    def test_to_json_invalid_arg(self):
+        with self.assertRaises(TypeError):
+            Base().to_json_string(None, None)
+
+    def test_to_json_invalid_arg_empty(self):
+        with self.assertRaises(TypeError):
+            Base().to_json_string()
 
 if __name__ == "__main__":
     unittest.main()
