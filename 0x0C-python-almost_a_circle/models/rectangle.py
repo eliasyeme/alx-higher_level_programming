@@ -111,6 +111,9 @@ class Rectangle(Base):
             elif i == 4:
                 self.y = val
 
+        if args:
+            return
+
         for k, v in kwargs.items():
             if k == "id" and v != None:
                 self.id = v

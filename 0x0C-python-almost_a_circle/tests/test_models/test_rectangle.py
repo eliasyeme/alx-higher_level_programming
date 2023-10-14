@@ -537,7 +537,7 @@ class TestRectangleUpdateKwargs(unittest.TestCase):
 
     def test_rect_update_more_than_5(self):
         self.r.update(7, 6, 5, 4, width=3, id=2, y=1)
-        self.assertEqual("[Rectangle] (2) 4/1 - 3/5", str(self.r))
+        self.assertEqual("[Rectangle] (7) 4/1 - 6/5", str(self.r))
 
     def test_rect_update_twice(self):
         self.r.update(x=4, y=3, height=5, width=6, id=7)
@@ -546,32 +546,32 @@ class TestRectangleUpdateKwargs(unittest.TestCase):
 
     def test_rect_update_invalid_width(self):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
-            self.r.update(None, width="")
+            self.r.update(width="")
 
     def test_rect_update_invalid_height(self):
         with self.assertRaisesRegex(TypeError, "height must be an integer"):
-            self.r.update(None, 1, height="")
+            self.r.update(height="")
 
     def test_rect_update_invalid_x(self):
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
-            self.r.update(None, 1, 1, x="")
+            self.r.update(x="")
 
     def test_rect_update_invalid_y(self):
         with self.assertRaisesRegex(TypeError, "y must be an integer"):
-            self.r.update(None, 1, 1, 1, y="")
+            self.r.update(y="")
 
     def test_rect_update_invalid_value_width(self):
         with self.assertRaisesRegex(ValueError, "width must be > 0"):
-            self.r.update(None, width=0)
+            self.r.update(width=0)
 
     def test_rect_update_invalid_value_height(self):
         with self.assertRaisesRegex(ValueError, "height must be > 0"):
-            self.r.update(None, 1, height=0)
+            self.r.update(height=0)
 
     def test_rect_update_invalid_value_x(self):
         with self.assertRaisesRegex(ValueError, "x must be >= 0"):
-            self.r.update(None, 1, 1, x=-1)
+            self.r.update(x=-1)
 
     def test_rect_update_invalid_value_y(self):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
-            self.r.update(None, 1, 1, 1, y=-1)
+            self.r.update(y=-1)

@@ -280,3 +280,123 @@ class TestSquarePrint(unittest.TestCase):
         print(s)
         want = "[Square] ({}) 23/12 - 4\n".format(s.id)
         self.assertEqual(stdout.getvalue(), want)
+
+class TestSquareUpdateArgs(unittest.TestCase):
+    """Rectangle update test"""
+    def setUp(self):
+        self.s = Square(1, 1, 1, 1)
+
+    def test_square_update_no_args(self):
+        self.s.update()
+        self.assertEqual("[Square] (1) 1/1 - 1", str(self.s))
+
+    def test_square_update_none_id(self):
+        self.s.update(None)
+        self.assertEqual("[Square] (1) 1/1 - 1", str(self.s))
+
+    def test_square_update_1_args(self):
+        self.s.update(7)
+        self.assertEqual("[Square] (7) 1/1 - 1", str(self.s))
+
+    def test_square_update_2_args(self):
+        self.s.update(7, 6)
+        self.assertEqual("[Square] (7) 1/1 - 6", str(self.s))
+
+    def test_square_update_3_args(self):
+        self.s.update(7, 6, 5)
+        self.assertEqual("[Square] (7) 5/1 - 6", str(self.s))
+
+    def test_square_update_4_args(self):
+        self.s.update(7, 6, 5, 4)
+        self.assertEqual("[Square] (7) 5/4 - 6", str(self.s))
+
+    def test_square_update_5_args(self):
+        self.s.update(7, 6, 5, 4, 3)
+        self.assertEqual("[Square] (7) 5/4 - 6", str(self.s))
+
+    def test_square_update_more_than_5(self):
+        self.s.update(7, 6, 5, 4, 3, 2, 1)
+        self.assertEqual("[Square] (7) 5/4 - 6", str(self.s))
+
+    def test_square_update_twice(self):
+        self.s.update(7, 6, 5, 4)
+        self.s.update(70, 60, 50, 40)
+        self.assertEqual("[Square] (70) 50/40 - 60", str(self.s))
+
+    def test_square_update_invalid_width(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            self.s.update(None, "")
+
+    def test_square_update_invalid_x(self):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            self.s.update(None, 1, "")
+
+    def test_square_update_invalid_y(self):
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            self.s.update(None, 1, 1, "")
+
+    def test_square_update_invalid_value_width(self):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            self.s.update(None, 0)
+
+    def test_square_update_invalid_value_x(self):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            self.s.update(None, 1, -1)
+
+    def test_square_update_invalid_value_y(self):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            self.s.update(None, 1, 1, -1)
+
+class TestRectangleUpdateKwargs(unittest.TestCase):
+    """Rectangle update key word args test"""
+    def setUp(self):
+        self.s = Square(1, 1, 1, 1)
+
+    def test_square_update_id(self):
+        self.s.update(id=7)
+        self.assertEqual("[Square] (7) 1/1 - 1", str(self.s))
+
+    def test_square_update_id_size(self):
+        self.s.update(size=6, id=7)
+        self.assertEqual("[Square] (7) 1/1 - 6", str(self.s))
+
+    def test_square_update_id_size_x(self):
+        self.s.update(x=4, size=5, id=7)
+        self.assertEqual("[Square] (7) 4/1 - 5", str(self.s))
+
+    def test_square_update_id_size_x_y(self):
+        self.s.update(size=6, id=7, y=3, x=4)
+        self.assertEqual("[Square] (7) 4/3 - 6", str(self.s))
+
+    def test_square_update_more_than_5(self):
+        self.s.update(7, 6, 5, 4, width=3, id=2, y=1)
+        self.assertEqual("[Square] (7) 5/4 - 6", str(self.s))
+
+    def test_square_update_twice(self):
+        self.s.update(x=4, y=3, size=5, id=7)
+        self.s.update(x=40, y=30, size=50, id=70)
+        self.assertEqual("[Square] (70) 40/30 - 50", str(self.s))
+
+    def test_square_update_invalid_width(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            self.s.update(size="")
+
+    def test_square_update_invalid_x(self):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            self.s.update(x="")
+
+    def test_square_update_invalid_y(self):
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            self.s.update(y="")
+
+    def test_square_update_invalid_value_size(self):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            self.s.update(size=0)
+
+    def test_square_update_invalid_value_x(self):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            self.s.update(x=-1)
+
+    def test_square_update_invalid_value_y(self):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            self.s.update(y=-1)
