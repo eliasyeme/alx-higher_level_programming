@@ -575,3 +575,54 @@ class TestRectangleUpdateKwargs(unittest.TestCase):
     def test_rect_update_invalid_value_y(self):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             self.r.update(y=-1)
+
+
+class TestRectangleToDict(unittest.TestCase):
+    """Test to_dictionary public method"""
+    def setUp(self):
+        self.r = Rectangle(1, 1, 0, 0, 1)
+        self.dict = {
+            "id": 1,
+            "width": 1,
+            "height": 1,
+            "x": 0,
+            "y": 0
+        }
+
+    def test_rect_dict_minmal(self):
+        got = self.r.to_dictionary()
+        self.assertDictEqual(got, self.dict)
+
+    def test_rect_dict_modified_id(self):
+        self.r.update(id=9)
+        self.dict["id"] = 9
+        got = self.r.to_dictionary()
+        self.assertDictEqual(got, self.dict)
+
+    def test_rect_dict_modified_width_height(self):
+        self.r.update(width=7, height=9)
+        got = self.r.to_dictionary()
+        self.dict["width"] = 7
+        self.dict["height"] = 9
+        self.assertDictEqual(got, self.dict)
+
+    def test_rect_dict_modified_x_y(self):
+        self.r.update(x=7, y=9)
+        got = self.r.to_dictionary()
+        self.dict["x"] = 7
+        self.dict["y"] = 9
+        self.assertDictEqual(got, self.dict)
+
+    def test_rect_dict_modified_all(self):
+        self.r.update(id=2, width=3, height=4, x=7, y=9)
+        got = self.r.to_dictionary()
+        self.dict["id"] = 2
+        self.dict["width"] = 3
+        self.dict["height"] = 4
+        self.dict["x"] = 7
+        self.dict["y"] = 9
+        self.assertDictEqual(got, self.dict)
+
+    def test_rect_dict_type_error(self):
+        with self.assertRaises(TypeError):
+            self.r.to_dictionary(None)

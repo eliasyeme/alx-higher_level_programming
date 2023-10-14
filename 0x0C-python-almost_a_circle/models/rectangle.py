@@ -135,6 +135,16 @@ class Rectangle(Base):
     #         else:
     #             setattr(self, attrs[i-1], args[i])
 
+    def to_dictionary(self):
+        """Return dictionary representation"""
+        return {
+            "id": self.id,
+            "width": self.width,
+            "height": self.height,
+            "x": self.x,
+            "y": self.y
+        }
+
     @staticmethod
     def __error_helper(value, an):
         if type(value) != int:
