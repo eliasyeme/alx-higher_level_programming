@@ -5,7 +5,6 @@ from models.base import Base
 
 class Rectangle(Base):
     """Rectangle class"""
-
     def __init__(self, width, height, x=0, y=0, id=None):
         """Initialize rectangle
 
@@ -26,7 +25,6 @@ class Rectangle(Base):
         self.x = x
         self.y = y
         super().__init__(id)
-
 
     @property
     def width(self):
@@ -100,7 +98,7 @@ class Rectangle(Base):
         """Update attributes"""
         for i in range(len(args)):
             val = args[i]
-            if i == 0 and val != None:
+            if i == 0 and val is not None:
                 self.id = val
             elif i == 1:
                 self.width = val
@@ -115,7 +113,7 @@ class Rectangle(Base):
             return
 
         for k, v in kwargs.items():
-            if k == "id" and v != None:
+            if k == "id" and v is not None:
                 self.id = v
             elif k == "width":
                 self.width = v
@@ -147,7 +145,7 @@ class Rectangle(Base):
 
     @staticmethod
     def __error_helper(value, an):
-        if type(value) != int:
+        if type(value) is not int:
             raise TypeError(
                 "{} must be an integer".format(an)
             )
