@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """Base class module"""
-
-
 import json
 
 
@@ -35,15 +33,14 @@ class Base:
         Returns:
             str: json string
         """
-        if list_dictionaries is None or\
-            len(list_dictionaries) == 0:
+        if list_dictionaries is None or len(list_dictionaries) == 0:
             return "[]"
         else:
             return json.dumps(list_dictionaries)
 
     @staticmethod
     def from_json_string(json_string):
-        """Return list from json string
+        """Create list from json string
 
         Args:
             json_string (str): json string
@@ -70,3 +67,18 @@ class Base:
             else:
                 dl = [x.to_dictionary() for x in list_objs]
                 file.write(cls.to_json_string(dl))
+
+    @classmethod
+    def create(cls, **dictionary):
+        """Create instance with all attributes set
+
+        Args:
+            dictionary (dict): attributes to be set
+
+        Returns:
+            instance: new instance set with dictionary
+        """
+        if dictionary and len(dictionary):
+            new = cls(1) if cls.__name__ == "Square" else cls(1, 1)
+            new.update(**dictionary)
+            return new

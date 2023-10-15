@@ -170,7 +170,9 @@ class TestBaseJsonToFile(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.r.save_to_file(None, None)
 
-class TestFromJsonStrin(unittest.TestCase):
+
+class TestFromJsonString(unittest.TestCase):
+    """Test from json string to list"""
     def test_json_string_none(self):
         got = Base().from_json_string(None)
         self.assertListEqual(got, [])
@@ -209,6 +211,70 @@ class TestFromJsonStrin(unittest.TestCase):
     def test_json_string_invalid_args_type(self):
         with self.assertRaises(TypeError):
             Base().from_json_string(None, None)
+
+
+class TestDictionaryToInstance(unittest.TestCase):
+    """Test create instance from dictionary"""
+    def setUp(self):
+        self.s1 = Square(1)
+        self.s2 = Square(1, 2)
+        self.s3 = Square(1, 2, 3)
+        self.s4 = Square(1, 2, 3, 4)
+        self.r1 = Rectangle(1, 1)
+        self.r2 = Rectangle(1, 2, 3)
+        self.r3 = Rectangle(1, 2, 3, 4)
+        self.r4 = Rectangle(1, 2, 3, 4, 5)
+
+    def test_create_square_arg_1(self):
+        s = Square.create(**self.s1.to_dictionary())
+        self.assertEqual(str(s), str(self.s1))
+
+    def test_create_square_arg_2(self):
+        s = Square.create(**self.s2.to_dictionary())
+        self.assertEqual(str(s), str(self.s2))
+
+    def test_create_square_arg_3(self):
+        s = Square.create(**self.s3.to_dictionary())
+        self.assertEqual(str(s), str(self.s3))
+
+    def test_create_square_arg_4(self):
+        s = Square.create(**self.s4.to_dictionary())
+        self.assertEqual(str(s), str(self.s4))
+
+    def test_create_square_instance(self):
+        s = Square.create(**self.s1.to_dictionary())
+        self.assertIsInstance(s, Square)
+
+    def test_create_rect_arg_2(self):
+        r = Rectangle.create(**self.r1.to_dictionary())
+        self.assertEqual(str(r), str(self.r1))
+
+    def test_create_rect_arg_3(self):
+        r = Rectangle.create(**self.r2.to_dictionary())
+        self.assertEqual(str(r), str(self.r2))
+
+    def test_create_rect_arg_4(self):
+        r = Rectangle.create(**self.r3.to_dictionary())
+        self.assertEqual(str(r), str(self.r3))
+
+    def test_create_rect_arg_5(self):
+        r = Rectangle.create(**self.r4.to_dictionary())
+        self.assertEqual(str(r), str(self.r4))
+
+    def test_create_rect_instance(self):
+        r = Rectangle.create(**self.r1.to_dictionary())
+        self.assertIsInstance(r, Rectangle)
+
+    def test_create_rect_instance_is_different(self):
+        r1 = Rectangle.create(**self.r1.to_dictionary())
+        self.assertIsNot(r1,self.r1)
+
+    def test_create_square_instance_is_different(self):
+        s1 = Square.create(**self.s1.to_dictionary())
+        self.assertIsNot(s1,self.s1)
+
+    def test_create_no_args(self):
+        self.assertEqual(Base.create(), None)
 
 if __name__ == "__main__":
     unittest.main()
