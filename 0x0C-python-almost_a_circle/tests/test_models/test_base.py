@@ -170,5 +170,45 @@ class TestBaseJsonToFile(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.r.save_to_file(None, None)
 
+class TestFromJsonStrin(unittest.TestCase):
+    def test_json_string_none(self):
+        got = Base().from_json_string(None)
+        self.assertListEqual(got, [])
+
+    def test_json_string_empty_list(self):
+        got = Base().from_json_string("[]")
+        self.assertListEqual(got, [])
+
+    def test_json_string_from_rect(self):
+        r = Rectangle(1, 1)
+        dict_str = r.to_json_string([r.to_dictionary()])
+        got = Base().from_json_string(dict_str)
+        self.assertListEqual(got, [r.to_dictionary()])
+
+    def test_json_string_from_square(self):
+        s = Square(1)
+        dict_str = s.to_json_string([s.to_dictionary()])
+        got = Base().from_json_string(dict_str)
+        self.assertListEqual(got, [s.to_dictionary()])
+
+    def test_json_string_from_rect_and_square(self):
+        s = Square(1)
+        r = Rectangle(1, 1)
+        dict_str = s.to_json_string([s.to_dictionary(), r.to_dictionary()])
+        got = Base().from_json_string(dict_str)
+        self.assertListEqual(got, [s.to_dictionary(), r.to_dictionary()])
+
+    def test_json_string_invalid_args(self):
+        with self.assertRaises(TypeError):
+            Base().from_json_string()
+
+    def test_json_string_invalid_args_type(self):
+        with self.assertRaises(TypeError):
+            Base().from_json_string(2)
+
+    def test_json_string_invalid_args_type(self):
+        with self.assertRaises(TypeError):
+            Base().from_json_string(None, None)
+
 if __name__ == "__main__":
     unittest.main()

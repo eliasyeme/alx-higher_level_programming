@@ -41,8 +41,28 @@ class Base:
         else:
             return json.dumps(list_dictionaries)
 
+    @staticmethod
+    def from_json_string(json_string):
+        """Return list from json string
+
+        Args:
+            json_string (str): json string
+
+        Returns:
+            list: list from json string
+        """
+        if json_string is None:
+            return []
+        else:
+            return json.loads(json_string)
+
     @classmethod
     def save_to_file(cls, list_objs):
+        """Write list of object to file as json
+
+        Args:
+            list_objs (list[dict]): List of dictionary
+        """
         fn = "{}.json".format(cls.__name__)
         with open(fn, "w") as file:
             if list_objs is None:
