@@ -276,5 +276,51 @@ class TestDictionaryToInstance(unittest.TestCase):
     def test_create_no_args(self):
         self.assertEqual(Base.create(), None)
 
+
+class TestLoadFromFile(unittest.TestCase):
+    """Test load instance from file"""
+    def setUp(self) -> None:
+        pass
+
+    def tearDown(self):
+        fnl = ["Rectangle.json", "Square.json", "Base.json"]
+        for name in fnl:
+            if os.path.exists(name):
+                os.remove(name)
+
+    def test_load_file_not_exist(self):
+        r = Rectangle(1, 1).load_from_file()
+        self.assertListEqual(r, [])
+
+    def test_load_from_square(self):
+        s = Square(1)
+        Square.save_to_file([s])
+        l = Square.load_from_file()
+        self.assertListEqual([str(s)], [str(x) for x in l])
+
+    def test_load_from_rect(self):
+        r = Rectangle(1, 1)
+        Rectangle.save_to_file([r])
+        l = Rectangle.load_from_file()
+        self.assertListEqual([str(r)], [str(x) for x in l])
+
+    def test_load_from_rects(self):
+        r1 = Rectangle(1, 1)
+        r2 = Rectangle(3, 4)
+        Rectangle.save_to_file([r1, r2])
+        l = Rectangle.load_from_file()
+        self.assertListEqual([str(r1), str(r2)], [str(x) for x in l])
+
+    def test_load_from_squares(self):
+        s1 = Square(1, 1)
+        s2 = Square(3, 4)
+        Square.save_to_file([s1, s2])
+        l = Square.load_from_file()
+        self.assertListEqual([str(s1), str(s2)], [str(x) for x in l])
+
+    def test_load_from_invalid_arg(self):
+        with self.assertRaises(TypeError):
+            Rectangle.load_from_file(None)
+
 if __name__ == "__main__":
     unittest.main()
