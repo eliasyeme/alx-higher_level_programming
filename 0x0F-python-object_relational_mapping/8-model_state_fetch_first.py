@@ -17,7 +17,8 @@ if __name__ == "__main__":
     engine = create_engine(
         "mysql+mysqldb://{}:{}@localhost:{}/{}".format(
             user_name, password, port, db_name
-        )
+        ),
+        pool_pre_ping=True,
     )
 
     Base.metadata.create_all(engine)
