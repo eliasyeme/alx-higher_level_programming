@@ -18,7 +18,14 @@ if __name__ == "__main__":
 
     cursor = db.cursor()
     matching = sys.argv[4]
-    cursor.execute("SELECT * FROM states WHERE name = %s ORDER BY id ASC", (matching,))
+    cursor.execute(
+        """
+        SELECT * FROM states
+        WHERE name = %s
+        ORDER BY id ASC
+        """,
+        (matching,),
+    )
 
     rows = cursor.fetchall()
     for row in rows:

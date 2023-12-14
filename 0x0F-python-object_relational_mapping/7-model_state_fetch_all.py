@@ -9,13 +9,15 @@ from sqlalchemy.orm import sessionmaker
 
 
 if __name__ == "__main__":
-    user = sys.argv[1]
+    user_name = sys.argv[1]
     password = sys.argv[2]
-    db = sys.argv[3]
+    db_name = sys.argv[3]
     port = 3306
 
     engine = create_engine(
-        "mysql+mysqldb://{}:{}@localhost:{}/{}".format(user, password, port, db),
+        "mysql+mysqldb://{}:{}@localhost:{}/{}".format(
+            user_name, password, port, db_name
+        ),
         pool_pre_ping=True,
     )
 
