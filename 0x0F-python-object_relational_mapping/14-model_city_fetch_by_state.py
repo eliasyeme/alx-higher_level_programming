@@ -30,5 +30,5 @@ if __name__ == "__main__":
         State.id == City.state_id
     ):
         print("{}: ({}) {}".format(instance[0], instance[1], instance[2]))
-    
+
     session.close()
